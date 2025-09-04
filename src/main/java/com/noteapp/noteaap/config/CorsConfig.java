@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig {
 
     // Use environment variable for frontend URLs (comma-separated)
-    @Value("${FRONTEND_URLS}")
+    @Value("${FRONTEND_URL}")
     private String frontendUrls;
 
     @Bean
