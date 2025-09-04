@@ -1,5 +1,6 @@
 package com.noteapp.noteaap.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -8,16 +9,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig {
 
+    // Use environment variable for frontend URLs (comma-separated)
+    @Value("${FRONTEND_URLS}")
+    private String frontendUrls;
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                // Split comma-separated URLs into an array
+                String[] allowedOrigins = frontendUrls.split(",");
+
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                "https://notefrontent-io77az22r-my-projectteam.vercel.app",
-                                "https://notefrontent-phi.vercel.app"
-                        )
+                        .allowedOrigins(allowedOrigins)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
