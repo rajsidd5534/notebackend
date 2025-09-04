@@ -12,11 +12,12 @@ public class MongoConfig {
 
     @Bean
     public MongoClient mongoClient(@Value("${spring.data.mongodb.uri}") String mongoUri) {
+        System.out.println("Mongo URI: " + mongoUri); // optional debug
         return MongoClients.create(mongoUri);
     }
 
     @Bean
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-        return new MongoTemplate(mongoClient, "noteapp");
+        return new MongoTemplate(mongoClient, "noteapp"); // DB name
     }
 }
